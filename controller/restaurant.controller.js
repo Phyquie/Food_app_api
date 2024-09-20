@@ -42,13 +42,11 @@ export const updateMenu = async (req,res) => {
         const menuId = req.params.id;
         const { name, description, price, image, category } = req.body;
 
-        // Check if the menu item belongs to the restaurant
         const existingMenu = await Menu.findOne({ _id: menuId, restaurantId });
         if (!existingMenu) {
             return res.status(403).json({ message: "You don't have permission to update this menu item" });
         }
     
-        // Check if all required fields are provided
         if (!name && !description && !price && !image && !category) {
             return res.status(400).json({ message: "At least one field is required for update" });
         }

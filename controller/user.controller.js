@@ -21,7 +21,7 @@ export const getAllres = async (req, res) => {
 
         const userPincode = user.address.postalCode;
 
-        // Find restaurants with matching pincode
+        
         const restaurants = await Restaurant.find({ "address.postalCode": userPincode }).select('-password -email -username');
         
         if (restaurants.length === 0) {
@@ -49,7 +49,6 @@ export const getnonvegAllres = async (req, res) => {
 
         const userPincode = user.address.postalCode;
 
-        // Find restaurants with matching pincode and type: veg
         const restaurants = await Restaurant.find({ 
             "address.postalCode": userPincode,
             "type": "non-veg"
