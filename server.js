@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.routes.js";
 import restaurantRoutes from "./routes/restaurant.routes.js";
 import {v2 as cloudinary} from "cloudinary";
+import rateLimit from "express-rate-limit";
 
 
 cloudinary.config({
@@ -14,12 +15,21 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5, 
+  message: "Too many requests from this IP, please try again in an hour!",
+});
+
+
 
 const app = express();
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use("/api/auth/signup", limiter);
+
 
 
 app.use("/api/auth", authRoutes);
