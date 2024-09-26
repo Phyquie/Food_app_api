@@ -9,6 +9,7 @@ import Review from "../models/reveiw.model.js"
 
 
 
+
 export const getAllres = async (req, res) => {
     try {
        
@@ -208,4 +209,6 @@ export const postReview = async (req, res) => {
         res.status(500).json({ message: "Error posting review", error: error.message });
     }
 };
+
+
 
