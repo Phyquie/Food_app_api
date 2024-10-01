@@ -16,7 +16,7 @@ const sendOTPEmail = async (email, otp) => {
         secure: false, 
         auth: {
             user: '79ac62002@smtp-brevo.com', 
-            pass: 'myZrgHpLRKfV4cBU' 
+            pass: process.env.BREVEO_PASS
         }
     });
 
